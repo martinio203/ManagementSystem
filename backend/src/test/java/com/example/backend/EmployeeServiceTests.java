@@ -76,7 +76,7 @@ class EmployeeServiceTests {
 
     @Test
     void findAllEmployees_shouldReturnAllEmployees() {
-        when(employeeRepository.findAllEmployees()).thenReturn(Collections.emptyList());
+        when(employeeRepository.displayAllEmployees()).thenReturn(Collections.emptyList());
 
         assertEquals(Collections.emptyList(), employeeService.findAllEmployees());
     }

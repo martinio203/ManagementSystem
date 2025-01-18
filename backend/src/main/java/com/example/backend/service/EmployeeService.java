@@ -10,6 +10,8 @@ public interface EmployeeService {
     List<Map<String, Object>> findAllEmployees();
     int addEmployee(AddEmployeeRequest request);
     String changeEmployeeDetails(int id, Map<String, Object> toChange);
+    int countEmployees();
+    Map<String, Object> employeeDetails(int id);
 //    int changeJob(int id, String newJobName);
 //    int changeDeparment(int id, String newDepartment);
 }

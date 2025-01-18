@@ -5,7 +5,6 @@ import com.example.backend.repository.EmployeeRepository;
 import com.example.backend.request.AddEmployeeRequest;
 import com.example.backend.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Map<String, Object>> findAllEmployees() {
-        return employeeRepository.findAllEmployees();
+        return employeeRepository.displayAllEmployees();
     }
 
     @Override
@@ -98,9 +97,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private int changeDepartment(int id, String newDepartment) {
         if (newDepartment.isEmpty()) throw new IllegalArgumentException("Department name can not be empty");
-        try {
-            departmentRepository.findDepartmentByName(newDepartment);
-        } catch (EmptyResultDataAccessException e) {
+        if (!departmentRepository.departmentExist(newDepartment)) {
             throw new IllegalArgumentException("Departmet " + newDepartment + " does not exist");
         }
         return employeeRepository.changeDepartment(id, newDepartment);
@@ -109,6 +106,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     private int changeManager(int id, String firstName, String lastName) {
         if (firstName.isEmpty() && lastName.isEmpty()) throw new IllegalArgumentException("First and last name can not be empty");
         return employeeRepository.changeManager(id, firstName, lastName);
+    }
+
+    @Override
+    public int countEmployees() {
+        return employeeRepository.countEmployees();
+    }
+
+    @Override
+    public Map<String, Object> employeeDetails(int id) {
+        return employeeRepository.employeeDetails(id);
     }
 
 }

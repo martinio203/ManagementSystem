@@ -12,6 +12,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/employees")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
@@ -22,7 +23,7 @@ public class EmployeeController {
 
     @GetMapping("/details/{id}")
     public ResponseEntity<Map<String, Object>> getEmployeeDetails(@PathVariable int id) {
-        return ResponseEntity.ok(employeeService.getEmployeeById(id));
+        return ResponseEntity.ok(employeeService.employeeDetails(id));
     }
 
     @PostMapping("/add")
@@ -34,5 +35,10 @@ public class EmployeeController {
     public ResponseEntity<String> changeEmployeeDetails(@PathVariable int id,
                                                         @RequestBody Map<String, Object> details) {
         return ResponseEntity.ok(employeeService.changeEmployeeDetails(id, details));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countEmployees() {
+        return ResponseEntity.ok(employeeService.countEmployees());
     }
 }

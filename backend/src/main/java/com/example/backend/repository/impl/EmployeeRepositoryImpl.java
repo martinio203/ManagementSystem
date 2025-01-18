@@ -17,14 +17,28 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Map<String, Object>> findAllEmployees() {
-        String sql = "SELECT FIRST_NAME, LAST_NAME, EMAIL FROM EMPLOYEES";
+    public List<Map<String, Object>> displayAllEmployees() {
+        String sql = "SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL FROM EMPLOYEES";
         return jdbc.queryForList(sql);
     }
 
     @Override
     public Map<String, Object> findEmployeeById(int id) {
         String sql = "SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID = ?";
+        return jdbc.queryForMap(sql, id);
+    }
+
+    @Override
+    public Map<String, Object> employeeDetails(int id) {
+        String sql = "SELECT E.FIRST_NAME, E.LAST_NAME, E.EMAIL, E.PHONE_NUMBER, E.HIRE_DATE, E.SALARY," +
+                "J.JOB_TITLE, D.DEPARTMENT_NAME, " +
+                "M.FIRST_NAME || ' ' || M.LAST_NAME AS MANAGER_NAME "+
+                "FROM EMPLOYEES E " +
+                    "JOIN DEPARTMENTS D ON E.DEPARTMENT_ID = D.DEPARTMENT_ID " +
+                    "JOIN JOBS J ON E.JOB_ID = J.JOB_ID " +
+                    "LEFT JOIN EMPLOYEES M ON E.MANAGER_ID = M.EMPLOYEE_ID "+
+                "WHERE E.EMPLOYEE_ID = ?";
+
         return jdbc.queryForMap(sql, id);
     }
 
@@ -101,5 +115,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return jdbc.update(sql, managerFirstName, managerLastName, id);
     }
 
+    @Override
+    public int countEmployees() {
+        String sql = "SELECT COUNT(*) FROM EMPLOYEES";
+        Integer count = jdbc.queryForObject(sql, Integer.class);
+        return count != null ? count : 0;
+    }
 
 }
