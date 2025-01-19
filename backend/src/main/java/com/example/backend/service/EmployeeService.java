@@ -9,9 +9,13 @@ public interface EmployeeService {
     Map<String, Object> getEmployeeById(int id);
     List<Map<String, Object>> findAllEmployees();
     int addEmployee(AddEmployeeRequest request);
-    String changeEmployeeDetails(int id, Map<String, Object> toChange);
     int countEmployees();
     Map<String, Object> employeeDetails(int id);
-//    int changeJob(int id, String newJobName);
-//    int changeDeparment(int id, String newDepartment);
+    int changeSalary(int id, int newSalary);
+    int changeFirstName(int id, String newFirstName);
+    int changeLastName(int id, String newLastName);
+    int changeEmail(int id, String newEmail);
+    int changeNumber(int id, String newNumber);
+    int changeDepartment(int id, String newDepartment);
+    int changeManager(int id, String name);
 }

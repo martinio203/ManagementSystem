@@ -31,11 +31,47 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.addEmployee(request));
     }
 
-    @PatchMapping("/change-details/{id}")
-    public ResponseEntity<String> changeEmployeeDetails(@PathVariable int id,
-                                                        @RequestBody Map<String, Object> details) {
-        return ResponseEntity.ok(employeeService.changeEmployeeDetails(id, details));
+    @PatchMapping("/change-salary/{id}")
+    public ResponseEntity<Integer> changeSalary(@PathVariable int id,
+                                                @RequestBody int salary) {
+        return ResponseEntity.ok(employeeService.changeSalary(id, salary));
     }
+    @PatchMapping("/change-first-name/{id}")
+    public ResponseEntity<Integer> changeFirstName(@PathVariable int id,
+                                                   @RequestBody String firstName) {
+        return ResponseEntity.ok(employeeService.changeFirstName(id, firstName));
+    }
+
+    @PatchMapping("/change-last-name/{id}")
+    public ResponseEntity<Integer> changeLastName(@PathVariable int id,
+                                                  @RequestBody String lastName) {
+        return ResponseEntity.ok(employeeService.changeLastName(id, lastName));
+    }
+
+    @PatchMapping("/change-email/{id}")
+    public ResponseEntity<Integer> changeEmail(@PathVariable int id,
+                                                  @RequestBody String email) {
+        return ResponseEntity.ok(employeeService.changeEmail(id, email));
+    }
+
+    @PatchMapping("/change-number/{id}")
+    public ResponseEntity<Integer> changeNumber(@PathVariable int id,
+                                                  @RequestBody String number) {
+        return ResponseEntity.ok(employeeService.changeNumber(id, number));
+    }
+
+    @PatchMapping("/change-department/{id}")
+    public ResponseEntity<Integer> changeDepartment(@PathVariable int id,
+                                                  @RequestBody String department) {
+        return ResponseEntity.ok(employeeService.changeDepartment(id, department));
+    }
+
+    @PatchMapping("/change-manager/{id}")
+    public ResponseEntity<Integer> changeManager(@PathVariable int id,
+                                                  @RequestBody String name) {
+        return ResponseEntity.ok(employeeService.changeManager(id, name));
+    }
+
 
     @GetMapping("/count")
     public ResponseEntity<Integer> countEmployees() {
