@@ -39,38 +39,20 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public String changeDepartmentsDetails(int id, Map<String, Object> toChange) {
-        final int[] rowsAffected = {0};
-        toChange.forEach((key, value) -> {
-            switch (key) {
-                case "departmentName":
-                    rowsAffected[0] += changeName((String) value, id);
-                    break;
-                case "managerName":
-                    rowsAffected[0] =+ changeManager((String) value, id);
-                    break;
-                case "location":
-                    rowsAffected[0] =+ changeLocation((String) value, id);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid field: " + key);
-            }
-        });
-        return "Successfully changed " + rowsAffected[0] + " rows out of " + toChange.size() + " requested changes";
-    }
-
-    private int changeManager(String manager, int id) {
+    public int changeManager(String manager, int id) {
         if (manager.isEmpty()) throw new IllegalArgumentException("First and last name can no be empty");
         String[] managerName = manager.split(" ");
         return departmentRepository.changeManger(managerName[0], managerName[1], id);
     }
 
-    private int changeName(String name, int id) {
+    @Override
+    public int changeName(String name, int id) {
         if (name.isEmpty()) throw new IllegalArgumentException("Department name can not be empty");
         return departmentRepository.changeDepartmentName(name, id);
     }
 
-    private int changeLocation(String locationName, int id) {
+    @Override
+    public int changeLocation(String locationName, int id) {
         if (locationName.isEmpty()) throw new IllegalArgumentException("Location name can not be empty");
         return departmentRepository.changeLocationName(locationName, id);
     }

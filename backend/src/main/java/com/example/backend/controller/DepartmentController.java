@@ -30,10 +30,22 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.createNewDepartment(request));
     }
 
-    @PatchMapping("/change-details/{id}")
-    public ResponseEntity<String> changeDepartmentDetails(@PathVariable int id,
-                                                          @RequestBody Map<String, Object> details) {
-        return ResponseEntity.ok(departmentService.changeDepartmentsDetails(id, details));
+    @PatchMapping("/change-manager/{id}")
+    public ResponseEntity<Integer> changeManager(@PathVariable int id,
+                                                 @RequestBody String managerName) {
+        return ResponseEntity.ok(departmentService.changeManager(managerName, id));
+    }
+
+    @PatchMapping("/change-name/{id}")
+    public ResponseEntity<Integer> changeName(@PathVariable int id,
+                                                 @RequestBody String departmentName) {
+        return ResponseEntity.ok(departmentService.changeName(departmentName, id));
+    }
+
+    @PatchMapping("/change-location/{id}")
+    public ResponseEntity<Integer> changeLocation(@PathVariable int id,
+                                                 @RequestBody String locationName) {
+        return ResponseEntity.ok(departmentService.changeLocation(locationName, id));
     }
 
 }

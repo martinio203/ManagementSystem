@@ -10,5 +10,7 @@ public interface DepartmentService {
     Map<String, Object> findDepartmentById(int id);
     int createNewDepartment(AddNewDepartmentRequest request);
     Map<String, Object> departmentDetails(int id);
-    String changeDepartmentsDetails(int id, Map<String, Object> toChange);
+    int changeManager(String manager, int id);
+    int changeName(String name, int id);
+    int changeLocation(String locationName, int id);
 }
