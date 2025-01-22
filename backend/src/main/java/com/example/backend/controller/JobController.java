@@ -12,6 +12,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/jobs")
+@CrossOrigin(origins = "http://localhost:3000")
 public class JobController {
     private final JobService jobService;
 
@@ -24,6 +25,26 @@ public class JobController {
     @GetMapping("/details/{id}")
     public ResponseEntity<Map<String, Object>> getJobById(@PathVariable String id) {
         return ResponseEntity.ok(jobService.getJobById(id));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countJobs() {
+        return ResponseEntity.ok(jobService.countJobs());
+    }
+
+    @GetMapping("/max-salary")
+    public ResponseEntity<Map<String, Object>> maxSalaryJob() {
+        return ResponseEntity.ok(jobService.maxSalaryJob());
+    }
+
+    @GetMapping("/min-salary")
+    public ResponseEntity<Map<String, Object>> minSalaryJob() {
+        return ResponseEntity.ok(jobService.minSalaryJob());
+    }
+
+    @GetMapping("/most-employees-job")
+    public ResponseEntity<Map<String, Object>> mostEmployees() {
+        return ResponseEntity.ok(jobService.mostEmployeesJob());
     }
 
     @PostMapping("/add")
@@ -48,4 +69,10 @@ public class JobController {
                                                    @RequestBody int salary) {
         return ResponseEntity.ok(jobService.changeMinSalary(id, salary));
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Integer> deleteJob(@PathVariable String id) {
+        return ResponseEntity.ok(jobService.deleteJob(id));
+    }
+
 }

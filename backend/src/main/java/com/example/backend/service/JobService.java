@@ -14,4 +14,14 @@ public interface JobService {
     int changeTitle(String id, String jobTitle);
     int changeMaxSalary(String id, int salary);
     int changeMinSalary(String id, int salary);
+
+    int countJobs();
+
+    Map<String, Object> maxSalaryJob();
+
+    Map<String, Object> minSalaryJob();
+
+    Map<String, Object> mostEmployeesJob();
+
+    int deleteJob(String id);
 }

@@ -13,6 +13,12 @@ public interface CountryRepository {
     int changeName(int id, String name);
     int changeRegion(int id, String region);
     int changeCurrencyCode(int id, String code);
+    int countCountries();
 
+    Map<String, Object> mostLocations();
+
+    Map<String, Object> mostCountries();
+
+    int deleteCountry(int id);
 }
 

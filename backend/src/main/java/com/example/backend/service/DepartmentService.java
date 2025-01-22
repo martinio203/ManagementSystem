@@ -13,4 +13,10 @@ public interface DepartmentService {
     int changeManager(String manager, int id);
     int changeName(String name, int id);
     int changeLocation(String locationName, int id);
+
+    int countDepartments();
+
+    Map<String, Object> highestEmployees();
+
+    int deleteDepartment(int id);
 }

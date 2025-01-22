@@ -47,4 +47,24 @@ public class CountryServiceImpl implements CountryService {
         if (code.isEmpty()) throw new IllegalArgumentException("Currency code can not be empty");
         return countryRepository.changeCurrencyCode(id, code);
     }
+
+    @Override
+    public int countCountries() {
+        return countryRepository.countCountries();
+    }
+
+    @Override
+    public Map<String, Object> mostLocationsInCountry() {
+        return countryRepository.mostLocations();
+    }
+
+    @Override
+    public Map<String, Object> mostCountriesInRegion() {
+        return countryRepository.mostCountries();
+    }
+
+    @Override
+    public int deleteCountry(int id) {
+        return countryRepository.deleteCountry(id);
+    }
 }

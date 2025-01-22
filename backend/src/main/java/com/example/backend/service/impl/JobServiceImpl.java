@@ -50,4 +50,30 @@ public class JobServiceImpl implements JobService {
         if (salary <= 0) throw new IllegalArgumentException("Salary must be positive");
         return jobRepository.changeMinSalary(id, salary);
     }
+
+    @Override
+    public int countJobs() {
+        return jobRepository.countJobs();
+    }
+
+    @Override
+    public Map<String, Object> maxSalaryJob() {
+        return jobRepository.maxSalaryJob();
+    }
+
+    @Override
+    public Map<String, Object> minSalaryJob() {
+        return jobRepository.minSalaryJob();
+    }
+
+    @Override
+    public Map<String, Object> mostEmployeesJob() {
+        return jobRepository.mostEmployeesJob();
+    }
+
+    @Override
+    public int deleteJob(String id) {
+        return jobRepository.deleteJob(id);
+    }
+
 }

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +22,20 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.findAllEmployees());
     }
 
+
     @GetMapping("/details/{id}")
     public ResponseEntity<Map<String, Object>> getEmployeeDetails(@PathVariable int id) {
         return ResponseEntity.ok(employeeService.employeeDetails(id));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countEmployees() {
+        return ResponseEntity.ok(employeeService.countEmployees());
+    }
+
+    @GetMapping("/avg-salary")
+    public ResponseEntity<BigDecimal> getAvgSalary() {
+        return ResponseEntity.ok(employeeService.avgSalary());
     }
 
     @PostMapping("/add")
@@ -36,6 +48,20 @@ public class EmployeeController {
                                                 @RequestBody int salary) {
         return ResponseEntity.ok(employeeService.changeSalary(id, salary));
     }
+
+    @PatchMapping("/change-hire-date/{id}")
+    public ResponseEntity<Integer> changeHireDate(@PathVariable int id,
+                                                   @RequestBody String date) {
+        return ResponseEntity.ok(employeeService.changeHireDate(id, date));
+    }
+
+    @PatchMapping("/change-name/{id}")
+    public ResponseEntity<Integer> changeName(@PathVariable int id,
+                                              @RequestBody String name) {
+        return ResponseEntity.ok(employeeService.changeEmployeeName(id, name));
+    }
+
+
     @PatchMapping("/change-first-name/{id}")
     public ResponseEntity<Integer> changeFirstName(@PathVariable int id,
                                                    @RequestBody String firstName) {
@@ -72,9 +98,9 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.changeManager(id, name));
     }
 
-
-    @GetMapping("/count")
-    public ResponseEntity<Integer> countEmployees() {
-        return ResponseEntity.ok(employeeService.countEmployees());
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Integer> deleteEmployee(@PathVariable int id) {
+        return ResponseEntity.ok(employeeService.deleteEmployee(id));
     }
 }
+

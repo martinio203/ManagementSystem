@@ -57,4 +57,19 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.changeLocationName(locationName, id);
     }
 
+    @Override
+    public int countDepartments() {
+        return departmentRepository.countDepartments();
+    }
+
+    @Override
+    public Map<String, Object> highestEmployees() {
+        return departmentRepository.mostEmployees();
+    }
+
+    @Override
+    public int deleteDepartment(int id) {
+        return departmentRepository.deleteDepartment(id);
+    }
+
 }

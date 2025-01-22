@@ -15,4 +15,10 @@ public interface DepartmentRepository {
     int changeDepartmentName(String department, int id);
     int changeManger(String managerFirstName, String managerLastName, int id);
     int changeLocationName(String location, int id);
+
+    int countDepartments();
+
+    Map<String, Object> mostEmployees();
+
+    int deleteDepartment(int id);
 }

@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.request.AddEmployeeRequest;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +13,16 @@ public interface EmployeeService {
     int countEmployees();
     Map<String, Object> employeeDetails(int id);
     int changeSalary(int id, int newSalary);
+    int changeEmployeeName(int id, String name);
     int changeFirstName(int id, String newFirstName);
     int changeLastName(int id, String newLastName);
     int changeEmail(int id, String newEmail);
     int changeNumber(int id, String newNumber);
     int changeDepartment(int id, String newDepartment);
     int changeManager(int id, String name);
+    int changeHireDate(int id, String date);
+
+    BigDecimal avgSalary();
+
+    int deleteEmployee(int id);
 }

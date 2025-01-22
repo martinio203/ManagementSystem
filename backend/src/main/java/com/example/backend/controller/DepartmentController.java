@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.request.AddNewDepartmentRequest;
+import com.example.backend.service.CountryService;
 import com.example.backend.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/departments")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class DepartmentController {
     private final DepartmentService departmentService;
+    private final CountryService countryService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Map<String, Object>>> getAll() {
@@ -21,8 +24,18 @@ public class DepartmentController {
     }
 
     @GetMapping("/details/{id}")
-    public ResponseEntity<Map<String, Object>> getDepartmentById(@PathVariable int id) {
-        return ResponseEntity.ok(departmentService.findDepartmentById(id));
+    public ResponseEntity<Map<String, Object>> departmentDetails(@PathVariable int id) {
+        return ResponseEntity.ok(departmentService.departmentDetails(id));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countDepartments() {
+        return ResponseEntity.ok(departmentService.countDepartments());
+    }
+
+    @GetMapping("/most-employees")
+    public ResponseEntity<Map<String, Object>> mostEmployees() {
+        return ResponseEntity.ok(departmentService.highestEmployees());
     }
 
     @PostMapping("/add")
@@ -46,6 +59,17 @@ public class DepartmentController {
     public ResponseEntity<Integer> changeLocation(@PathVariable int id,
                                                  @RequestBody String locationName) {
         return ResponseEntity.ok(departmentService.changeLocation(locationName, id));
+    }
+
+    @PatchMapping("/change-country/{id}")
+    public ResponseEntity<Integer> changeCountry(@PathVariable int id,
+                                                  @RequestBody String country) {
+        return ResponseEntity.ok(countryService.changeName(id, country));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Integer> deleteDepartment(@PathVariable int id) {
+        return ResponseEntity.ok(departmentService.deleteDepartment(id));
     }
 
 }

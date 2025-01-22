@@ -16,21 +16,15 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
 
     @Override
     public List<Map<String, Object>> displayAllDepartments() {
-        String sql =  "SELECT D.DEPARTMENT_NAME AS DEPARTMENT_NAME," +
-                "E.LAST_NAME AS MANAGER_LAST_NAME," +
+        String sql =  "SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME AS DEPARTMENT_NAME," +
                 "L.CITY AS CITY," +
-                "C.COUNTRY_NAME AS COUNTRY_NAME," +
-                "R.REGION_NAME AS REGION_NAME " +
+                "C.COUNTRY_NAME AS COUNTRY_NAME " +
                 "FROM " +
                 "DEPARTMENTS D " +
                 "LEFT JOIN " +
-                "EMPLOYEES E ON D.MANAGER_ID = E.EMPLOYEE_ID " +
-                "LEFT JOIN " +
                 "LOCATIONS L ON D.LOCATION_ID = L.LOCATION_ID " +
                 "LEFT JOIN " +
-                "COUNTRIES C ON L.COUNTRY_ID = C.COUNTRY_ID " +
-                "LEFT JOIN " +
-                "REGIONS R ON C.REGION_ID = R.REGION_ID ";
+                "COUNTRIES C ON L.COUNTRY_ID = C.COUNTRY_ID ";
 
         return jdbc.queryForList(sql);
     }
@@ -113,4 +107,30 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         return jdbc.update(sql, location, id);
     }
 
+    @Override
+    public int countDepartments() {
+        String sql = "SELECT COUNT(*) FROM DEPARTMENTS";
+        Integer count = jdbc.queryForObject(sql, Integer.class);
+        return count != null ? count : 0;
+    }
+
+    @Override
+    public Map<String, Object> mostEmployees() {
+        String sql = "SELECT department_name, employees_count " +
+                "FROM (" +
+                    "SELECT d.department_name, COUNT(*) AS employees_count " +
+                    "FROM employees e " +
+                    "JOIN departments d ON e.department_id = d.department_id " +
+                    "GROUP BY d.department_name " +
+                    "ORDER BY employees_count DESC" +
+                    ") " +
+                "WHERE ROWNUM = 1";
+        return jdbc.queryForMap(sql);
+    }
+
+    @Override
+    public int deleteDepartment(int id) {
+        String sql = "DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID = ?";
+        return jdbc.update(sql, id);
+    }
 }

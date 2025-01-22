@@ -7,6 +7,7 @@ import com.example.backend.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     public int changeSalary(int id, int newSalary) {
         if (!(newSalary >= 0)) throw new IllegalArgumentException("New salary must be positive");
         return employeeRepository.changeSalary(id, newSalary);
+    }
+
+    @Override
+    public int changeEmployeeName(int id, String name) {
+        String[] splitName = name.split(" ");
+        if (splitName.length < 2) throw new IllegalArgumentException("Name must include both first name and last name.");
+        return employeeRepository.changeName(id, splitName[0], splitName[1]);
     }
 
     @Override
@@ -84,6 +92,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public int changeHireDate(int id, String date) {
+        return employeeRepository.changeHireDate(id, date);
+    }
+
+    @Override
     public int countEmployees() {
         return employeeRepository.countEmployees();
     }
@@ -93,5 +106,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.employeeDetails(id);
     }
 
+    @Override
+    public BigDecimal avgSalary() {
+        return employeeRepository.avgSalary();
+    }
+
+    @Override
+    public int deleteEmployee(int id) {
+        return employeeRepository.deleteEmployee(id);
+    }
 }
 

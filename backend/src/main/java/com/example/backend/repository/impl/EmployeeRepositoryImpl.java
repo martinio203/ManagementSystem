@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 
@@ -74,6 +76,20 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
+    public int changeHireDate(int id, String date) {
+        String sql = "UPDATE EMPLOYEES SET HIRE_DATE = ?" +
+                " WHERE EMPLOYEE_ID = ?";
+        return jdbc.update(sql, date, id);
+    }
+
+    @Override
+    public int changeName(int id, String firstName, String lastName) {
+        String sql = "UPDATE EMPLOYEES SET FIRST_NAME = ?" +
+                " , LAST_NAME = ? WHERE EMPLOYEE_ID = ?";
+        return jdbc.update(sql, firstName, lastName, id);
+    }
+
+    @Override
     public int changeFirstName(int id, String newFirstName) {
         String sql = "UPDATE EMPLOYEES SET FIRST_NAME = ? WHERE EMPLOYEE_ID = ?";
         return jdbc.update(sql, newFirstName, id);
@@ -115,6 +131,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return jdbc.update(sql, managerFirstName, managerLastName, id);
     }
 
+//
+
     @Override
     public int countEmployees() {
         String sql = "SELECT COUNT(*) FROM EMPLOYEES";
@@ -122,4 +140,17 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return count != null ? count : 0;
     }
 
+    @Override
+    public BigDecimal avgSalary() {
+        String sql = "SELECT AVG(salary) FROM EMPLOYEES";
+        BigDecimal salary = jdbc.queryForObject(sql, BigDecimal.class);
+        if (salary == null) return BigDecimal.ZERO;
+        return salary.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    @Override
+    public int deleteEmployee(int id) {
+        String sql = "DELETE FROM EMPLOYEE WHERE EMPLOYEE_ID = ?";
+        return jdbc.update(sql, id);
+    }
 }

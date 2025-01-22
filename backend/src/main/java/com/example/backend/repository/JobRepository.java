@@ -12,4 +12,14 @@ public interface JobRepository {
     int changeTitle(String id, String title);
     int changeMinSalary(String id, int salary);
     int changeMaxSalary(String id, int salary);
+
+    int countJobs();
+
+    Map<String, Object> maxSalaryJob();
+
+    Map<String, Object> minSalaryJob();
+
+    Map<String, Object> mostEmployeesJob();
+
+    int deleteJob(String id);
 }

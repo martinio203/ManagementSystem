@@ -12,6 +12,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/countries")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CountryController {
 
     private final CountryService countryService;
@@ -24,6 +25,21 @@ public class CountryController {
     @GetMapping("/details/{id}")
     public ResponseEntity<Map<String, Object>> findById(@PathVariable int id) {
         return ResponseEntity.ok(countryService.findCountryById(id));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countCountries() {
+        return ResponseEntity.ok(countryService.countCountries());
+    }
+
+    @GetMapping("/most-locations")
+    public ResponseEntity<Map<String, Object>> mostLocationsInCountry() {
+        return ResponseEntity.ok(countryService.mostLocationsInCountry());
+    }
+
+    @GetMapping("/most-countries")
+    public ResponseEntity<Map<String, Object>> mostCountriesInRegion() {
+        return ResponseEntity.ok(countryService.mostCountriesInRegion());
     }
 
     @PostMapping("/add")
@@ -47,5 +63,10 @@ public class CountryController {
     public ResponseEntity<Integer> changeCurrencyCode(@PathVariable int id,
                                               @RequestBody String code) {
         return ResponseEntity.ok(countryService.changeCurrencyCode(id, code));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Integer> deleteCountry(@PathVariable int id) {
+        return ResponseEntity.ok(countryService.deleteCountry(id));
     }
 }

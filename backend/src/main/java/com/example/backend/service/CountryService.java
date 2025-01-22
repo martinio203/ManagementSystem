@@ -12,4 +12,12 @@ public interface CountryService {
     int changeName(int id, String name);
     int changeRegion(int id, String region);
     int changeCurrencyCode(int id, String code);
+
+    int countCountries();
+
+    Map<String, Object> mostLocationsInCountry();
+
+    Map<String, Object> mostCountriesInRegion();
+
+    int deleteCountry(int id);
 }
