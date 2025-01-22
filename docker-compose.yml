@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  react:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://spring:8080
+
+  spring:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@155.158.112.45:1521:oltpstud
+      - SPRING_DATASOURCE_USERNAME=ziibd41
+      - SPRING_DATASOURCE_PASSWORD=haslo2024
+
