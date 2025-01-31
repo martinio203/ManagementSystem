@@ -27,21 +27,6 @@ public class CountryController {
         return ResponseEntity.ok(countryService.findCountryById(id));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<Integer> countCountries() {
-        return ResponseEntity.ok(countryService.countCountries());
-    }
-
-    @GetMapping("/most-locations")
-    public ResponseEntity<Map<String, Object>> mostLocationsInCountry() {
-        return ResponseEntity.ok(countryService.mostLocationsInCountry());
-    }
-
-    @GetMapping("/most-countries")
-    public ResponseEntity<Map<String, Object>> mostCountriesInRegion() {
-        return ResponseEntity.ok(countryService.mostCountriesInRegion());
-    }
-
     @PostMapping("/add")
     public ResponseEntity<Integer> addNew(@RequestBody AddNewCountryRequest request) {
         return ResponseEntity.ok(countryService.addCountry(request));

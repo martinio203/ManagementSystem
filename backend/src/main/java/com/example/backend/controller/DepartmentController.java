@@ -28,16 +28,6 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.departmentDetails(id));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<Integer> countDepartments() {
-        return ResponseEntity.ok(departmentService.countDepartments());
-    }
-
-    @GetMapping("/most-employees")
-    public ResponseEntity<Map<String, Object>> mostEmployees() {
-        return ResponseEntity.ok(departmentService.highestEmployees());
-    }
-
     @PostMapping("/add")
     public ResponseEntity<Integer> createDepartment(@RequestBody AddNewDepartmentRequest request) {
         return ResponseEntity.ok(departmentService.createNewDepartment(request));

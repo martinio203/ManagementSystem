@@ -28,16 +28,6 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.employeeDetails(id));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<Integer> countEmployees() {
-        return ResponseEntity.ok(employeeService.countEmployees());
-    }
-
-    @GetMapping("/avg-salary")
-    public ResponseEntity<BigDecimal> getAvgSalary() {
-        return ResponseEntity.ok(employeeService.avgSalary());
-    }
-
     @PostMapping("/add")
     public ResponseEntity<Integer> addEmployee(@RequestBody AddEmployeeRequest request) {
         return ResponseEntity.ok(employeeService.addEmployee(request));

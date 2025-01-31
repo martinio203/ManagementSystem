@@ -18,7 +18,6 @@ public class StatsController {
 
     @GetMapping("/stats")
     public ResponseEntity<Stats> getStats() {
-        System.out.println(1);
         return ResponseEntity.ok(statsService.stats());
     }
 }

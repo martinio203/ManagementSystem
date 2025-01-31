@@ -27,26 +27,6 @@ public class JobController {
         return ResponseEntity.ok(jobService.getJobById(id));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<Integer> countJobs() {
-        return ResponseEntity.ok(jobService.countJobs());
-    }
-
-    @GetMapping("/max-salary")
-    public ResponseEntity<Map<String, Object>> maxSalaryJob() {
-        return ResponseEntity.ok(jobService.maxSalaryJob());
-    }
-
-    @GetMapping("/min-salary")
-    public ResponseEntity<Map<String, Object>> minSalaryJob() {
-        return ResponseEntity.ok(jobService.minSalaryJob());
-    }
-
-    @GetMapping("/most-employees-job")
-    public ResponseEntity<Map<String, Object>> mostEmployees() {
-        return ResponseEntity.ok(jobService.mostEmployeesJob());
-    }
-
     @PostMapping("/add")
     public ResponseEntity<Integer> createNewJob(@RequestBody AddNewJobRequest request) {
         return ResponseEntity.ok(jobService.addJob(request));
